@@ -16,10 +16,10 @@ const projects = [
   {
     title: "Estética Girardi",
     description: "Landing page elegante para centro de estética con reservas online",
-    image: "https://image.thum.io/get/width/1200/crop/800/png/https://muramasabjj.com/",
+    image: "https://image.thum.io/get/width/1200/crop/800/png/https://esteticagirardi.com/",
     tags: ["React", "CSS3", "JavaScript"],
     github: "https://github.com/jjmillar/muramasa-webapp",
-    demo: "https://muramasabjj.com/",
+    demo: "https://esteticagirardi.com/",
     featured: false
   },
   {
