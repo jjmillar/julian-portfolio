@@ -6,11 +6,11 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 const projects = [
   {
     title: "Elemental Dojo",
-    description: "Sitio web para academia de artes marciales con diseño moderno y responsive",
-    image: "https://image.thum.io/get/width/1200/crop/800/png/https://muramasabjj.com/",
-    tags: ["React", "Next.js", "Tailwind CSS"],
-    github: "https://github.com/jjmillar/muramasa-webapp",
-    demo: "https://muramasabjj.com/",
+    description: "Diccionario interactivo de términos de Jiu-Jitsu Brasileño",
+    image: "https://image.thum.io/get/width/1200/crop/800/png/https://glosarioed.netlify.app/",
+    tags: ["React", "CSS3", "JavaScript"],
+    github: "https://github.com/jjmillar/glosario-ed",
+    demo: "https://glosarioed.netlify.app/",
     featured: true
   },
   {
@@ -18,7 +18,7 @@ const projects = [
     description: "Landing page elegante para centro de estética con reservas online",
     image: "https://image.thum.io/get/width/1200/crop/800/png/https://esteticagirardi.com/",
     tags: ["React", "CSS3", "JavaScript"],
-    github: "https://github.com/jjmillar/muramasa-webapp",
+    github: "https://github.com/jjmillar/react-agenda-online",
     demo: "https://esteticagirardi.com/",
     featured: false
   },
@@ -26,7 +26,7 @@ const projects = [
     title: "Muramasa BJJ",
     description: "Plataforma web para academia de jiu-jitsu brasileño",
     image: "https://image.thum.io/get/width/1200/crop/800/png/https://muramasabjj.com/",
-    tags: ["React", "Node.js", "MongoDB"],
+    tags: ["React", "CSS3", "JavaScript"],
     github: "https://github.com/jjmillar/muramasa-webapp",
     demo: "https://muramasabjj.com/",
     featured: true
@@ -34,10 +34,10 @@ const projects = [
   {
     title: "Bot Telegram con IA",
     description: "Bot inteligente para Telegram con capacidades de IA conversacional",
-    image: "https://image.thum.io/get/width/1200/crop/800/png/https://muramasabjj.com/",
-    tags: ["Node.js", "Express", "OpenAI API"],
-    github: "https://github.com/jjmillar/muramasa-webapp",
-    demo: "https://muramasabjj.com/",
+    image: "/bot.jpeg",
+    tags: ["Node.js", "Telegraf.js", "Gemini API"],
+    github: "https://github.com/jjmillar/bot-muramasa",
+    demo: "https://t.me/HelioGBot",
     featured: false
   }
 ];
