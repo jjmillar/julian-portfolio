@@ -1,29 +1,43 @@
 import { Moon, Sun } from "lucide-react";
-import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { flushSync } from "react-dom";
+
+type DocWithVT = Document & { startViewTransition?: (cb: () => void) => { ready: Promise<void> } };
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
 
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDark) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
+  const apply = (dark: boolean) => {
+    document.documentElement.classList.toggle("dark", dark);
+    try {
+      localStorage.setItem("theme", dark ? "dark" : "light");
+    } catch {
+      /* sin almacenamiento: el tema dura solo esta visita */
     }
-  }, [isDark]);
+    setIsDark(dark);
+  };
+
+  const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const next = !isDark;
+    const doc = document as DocWithVT;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!doc.startViewTransition || reduce) return apply(next);
+
+    const x = e.clientX || window.innerWidth - 40;
+    const y = e.clientY || 32;
+    const r = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+    const vt = doc.startViewTransition(() => flushSync(() => apply(next)));
+    vt.ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+        { duration: 650, easing: "cubic-bezier(0.16, 1, 0.3, 1)", pseudoElement: "::view-transition-new(root)" },
+      );
+    });
+  };
 
   return (
-    <Button
-      variant="outline"
-      size="icon"
-      onClick={() => setIsDark(!isDark)}
-      className="relative overflow-hidden border-border/50 bg-background/50 backdrop-blur-sm hover:bg-accent/50 transition-all duration-300"
-    >
-      <Sun className={`h-[1.2rem] w-[1.2rem] transition-all duration-300 ${isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100'}`} />
-      <Moon className={`absolute h-[1.2rem] w-[1.2rem] transition-all duration-300 ${isDark ? 'rotate-0 scale-100' : '-rotate-90 scale-0'}`} />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+    <button type="button" className="icon-btn" onClick={toggle} aria-label={isDark ? "Cambiar a tema claro" : "Cambiar a tema oscuro"}>
+      {isDark ? <Sun size={18} aria-hidden /> : <Moon size={18} aria-hidden />}
+    </button>
   );
 }

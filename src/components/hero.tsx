@@ -1,74 +1,88 @@
-import { motion } from "motion/react";
-import { MapPin, Mail, Phone } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { profile, stack, languages } from "../data";
+
+const formatTime = (timeZone: string) =>
+  new Intl.DateTimeFormat("es-CL", { timeZone, hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date());
+
+function useLocalTime(timeZone: string) {
+  const [time, setTime] = useState(() => formatTime(timeZone));
+  useEffect(() => {
+    const id = window.setInterval(() => setTime(formatTime(timeZone)), 15_000);
+    return () => window.clearInterval(id);
+  }, [timeZone]);
+  return time;
+}
 
 export function Hero() {
+  const time = useLocalTime(profile.timeZone);
+
   return (
-    <section className="pt-32 pb-20 px-6">
-      <div className="container mx-auto max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center space-y-6"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative inline-block"
-          >
-            <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-cyan-400/20 to-purple-400/20 border border-cyan-400/30 flex items-center justify-center backdrop-blur-sm">
-              <span className="text-6xl">👨‍💻</span>
-            </div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-4"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold">
-              ¡Hola! Soy{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                Julián Millar
-              </span>
-            </h1>
-            <h2 className="text-2xl md:text-3xl text-muted-foreground">
-              Desarrollador Frontend
-            </h2>
-          </motion.div>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-          >
-            Bienvenido a mi portafolio. Soy un desarrollador apasionado con experiencia en React, Next.js y tecnologías modernas. 
-            Me especializo en crear experiencias web elegantes y funcionales.
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground"
-          >
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-cyan-400" />
-              Los Ángeles, Chile
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-purple-400" />
-              julianjmillar@gmail.com
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-cyan-400" />
-              +569 7215 1199
-            </div>
-          </motion.div>
-        </motion.div>
+    <section id="inicio" className="wrap hero" aria-labelledby="hero-title">
+      <div className="bento bento--hero">
+        <article className="tile tile--intro">
+          <div className="blueprint" aria-hidden />
+          <h1 id="hero-title" className="display">
+            {profile.name}
+          </h1>
+          <p className="intro__role">{profile.role}</p>
+          <p className="intro__summary">{profile.summary}</p>
+          <div className="actions">
+            <a className="btn btn--primary" href="#contacto">
+              Hablemos de tu proyecto
+            </a>
+            <a className="btn btn--ghost" href="#proyectos">
+              Ver proyectos
+            </a>
+          </div>
+        </article>
+
+        <article className="tile tile--status">
+          <p className="status">
+            <span className="status__dot" aria-hidden />
+            {profile.status}
+          </p>
+          <div>
+            <p className="clock" aria-label={`Hora local en ${profile.location}: ${time}`}>
+              {time}
+            </p>
+            <p className="meta">Hora en {profile.location}</p>
+          </div>
+        </article>
+
+        <article className="tile tile--years">
+          <p className="big-number">9</p>
+          <p className="tile__text">años en oficina técnica de obras antes del código. Planifico, presupuesto y entrego a tiempo.</p>
+        </article>
+
+        <article className="tile tile--stack">
+          <h2 className="tile__title">Stack</h2>
+          <ul className="chips">
+            {stack.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="tile tile--langs">
+          <h2 className="tile__title">Idiomas</h2>
+          <dl className="langs">
+            {languages.map((l) => (
+              <div key={l.name}>
+                <dt>{l.name}</dt>
+                <dd>{l.level}</dd>
+              </div>
+            ))}
+          </dl>
+        </article>
+
+        <a className="tile tile--dojo tile--link" href="https://muramasabjj.com/" target="_blank" rel="noopener noreferrer">
+          <h2 className="tile__title">Fuera de la pantalla</h2>
+          <p className="tile__lead">Dirijo Muramasa BJJ y enseño Jiujitsu brasileño desde 2022.</p>
+          <span className="tile__cta">
+            muramasabjj.com <ArrowUpRight size={16} aria-hidden />
+          </span>
+        </a>
       </div>
     </section>
   );

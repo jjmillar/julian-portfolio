@@ -1,13 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="es" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="png" href="/icono.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portafolio de Julián</title>
+    <title>Julián Millar · Programador web fullstack</title>
+    <meta name="description" content="Portafolio de Julián Millar, programador web fullstack en Los Ángeles, Chile. React, Next.js, Node.js y nueve años gestionando proyectos de construcción." />
+    <meta property="og:title" content="Julián Millar · Programador web fullstack" />
+    <meta property="og:description" content="Diseño, desarrollo y despliego aplicaciones web de punta a punta." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CL" />
+    <meta name="theme-color" content="#171513" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" href="/icono.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script>
+      try {
+        if (localStorage.getItem("theme") === "light") document.documentElement.classList.remove("dark");
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <!-- Formulario estático para que Netlify Forms detecte el formulario del SPA -->
+    <form name="contacto" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
