@@ -19,16 +19,9 @@ export const profile = {
 };
 
 export const stack = [
-  "HTML5",
-  "CSS3",
-  "SASS",
-  "JavaScript",
-  "React.js",
-  "Next.js",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "PostgreSQL",
+  { group: "Frontend", items: ["HTML5", "CSS3", "SASS", "JavaScript", "React.js", "Next.js"] },
+  { group: "Backend", items: ["Node.js", "Express.js"] },
+  { group: "Datos", items: ["MongoDB", "PostgreSQL"] },
 ];
 
 export const languages = [
@@ -42,8 +35,9 @@ export type Project = {
   image: string;
   tags: string[];
   repo: string;
-  demo: string;
-  demoLabel: string;
+  /** URL pública. Si se omite, la tarjeta solo enlaza al código. */
+  demo?: string;
+  demoLabel?: string;
 };
 
 export const projects: Project[] = [
@@ -53,8 +47,7 @@ export const projects: Project[] = [
     image: "/proyecto-muramasa.webp",
     tags: ["React", "CSS3", "JavaScript"],
     repo: "https://github.com/jjmillar/muramasa-webapp",
-    demo: "https://muramasabjj.com/",
-    demoLabel: "Ver sitio",
+    // muramasabjj.com no resuelve (nov 2026): agrega demo y demoLabel cuando el sitio tenga URL activa.
   },
   {
     title: "Elemental Dojo",
@@ -76,18 +69,21 @@ export const projects: Project[] = [
   },
   {
     title: "Bot de Telegram con IA",
-    description: "Bot conversacional para Telegram que responde con inteligencia artificial.",
+    description: "Asistente de la academia en Telegram: menú con material y reglamentos, y respuestas con inteligencia artificial.",
     image: "/proyecto-bot.webp",
-    tags: ["Node.js", "Telegraf.js", "Gemini API"],
+    tags: ["Telegraf.js", "Cloudflare Workers", "Groq"],
     repo: "https://github.com/jjmillar/bot-muramasa",
     demo: "https://t.me/HelioGBot",
     demoLabel: "Probar bot",
   },
 ];
 
+// from/to: año decimal para la carta Gantt (to: null = sigue en curso).
 export const experience = [
   {
     company: "JJ Studio",
+    from: 2022.75,
+    to: null,
     role: "CEO · Desarrollador freelance",
     location: "Los Ángeles, Chile",
     period: "Oct 2022 — Presente",
@@ -95,6 +91,8 @@ export const experience = [
   },
   {
     company: "Muramasa BJJ",
+    from: 2022.42,
+    to: null,
     role: "CEO · Profesor de Jiujitsu brasileño",
     location: "Los Ángeles, Chile",
     period: "Jun 2022 — Presente",
@@ -102,6 +100,8 @@ export const experience = [
   },
   {
     company: "Vialum",
+    from: 2022.08,
+    to: 2025.67,
     role: "Jefe de Operaciones",
     location: "Los Ángeles, Chile",
     period: "Feb 2022 — Sep 2025",
@@ -112,6 +112,8 @@ export const experience = [
   },
   {
     company: "Varias empresas",
+    from: 2014,
+    to: 2022,
     role: "Oficina Técnica · Administrador de Proyectos",
     location: "Chile",
     period: "2014 — 2022",

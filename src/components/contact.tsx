@@ -50,6 +50,7 @@ export function Contact() {
     <section id="contacto" className="wrap section" aria-labelledby="contacto-title">
       <div className="bento bento--contact">
         <div className="tile tile--cta reveal">
+          <p className="eyebrow">Contacto</p>
           <h2 id="contacto-title" className="h2">¿Construimos algo?</h2>
           <p className="section__lead">Cuéntame qué necesitas: una web nueva, mejorar la que tienes o automatizar algo de tu negocio.</p>
           <div className="email-row">

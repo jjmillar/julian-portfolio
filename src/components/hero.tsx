@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { profile, stack, languages } from "../data";
 
 const formatTime = (timeZone: string) =>
@@ -22,10 +21,10 @@ export function Hero() {
       <div className="bento bento--hero">
         <article className="tile tile--intro">
           <div className="blueprint" aria-hidden />
+          <p className="eyebrow">{profile.role}</p>
           <h1 id="hero-title" className="display">
-            {profile.name}
+            Construyo webs con la disciplina de quien dirigió obras.
           </h1>
-          <p className="intro__role">{profile.role}</p>
           <p className="intro__summary">{profile.summary}</p>
           <div className="actions">
             <a className="btn btn--primary" href="#contacto">
@@ -57,11 +56,14 @@ export function Hero() {
 
         <article className="tile tile--stack">
           <h2 className="tile__title">Stack</h2>
-          <ul className="chips">
+          <dl className="stack">
             {stack.map((s) => (
-              <li key={s}>{s}</li>
+              <div key={s.group}>
+                <dt>{s.group}</dt>
+                <dd>{s.items.join(" · ")}</dd>
+              </div>
             ))}
-          </ul>
+          </dl>
         </article>
 
         <article className="tile tile--langs">
@@ -76,13 +78,13 @@ export function Hero() {
           </dl>
         </article>
 
-        <a className="tile tile--dojo tile--link" href="https://muramasabjj.com/" target="_blank" rel="noopener noreferrer">
+        <article className="tile tile--dojo">
+          <div className="tile__photo" aria-hidden>
+            <img src="/dojo.webp" alt="" loading="lazy" decoding="async" />
+          </div>
           <h2 className="tile__title">Fuera de la pantalla</h2>
           <p className="tile__lead">Dirijo Muramasa BJJ y enseño Jiujitsu brasileño desde 2022.</p>
-          <span className="tile__cta">
-            muramasabjj.com <ArrowUpRight size={16} aria-hidden />
-          </span>
-        </a>
+        </article>
       </div>
     </section>
   );
